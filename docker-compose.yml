@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  spring-compose:
+    image: criptografia
+    container_name: criptografia-api
+    environment:
+      DB_USERNAME: "postgres"
+      DB_PASSWORD: "bifus897yf29u"
+      DB_URL: "jdbc:postgresql://postgres-compose:5432/criptografia_db"
+      TEXT_ENCRYPTOR_KEY: "cfm90w8yef90378weyfn09wy4rt0923y"
+    ports:
+      - "8080:8080"
+    networks:
+      - spring-compose-network
+
+  postgres-compose:
+    image: postgres:15
+    container_name: postgres-criptografia-15
+    environment:
+      POSTGRES_PASSWORD: "bifus897yf29u"
+      PGDATA: /data/postgres
+      POSTGRES_DB: criptografia_db
+    ports:
+      - "5432:5432"
+    networks:
+      - spring-compose-network
+networks:
+  spring-compose-network:
+    driver: bridge
